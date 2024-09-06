@@ -1,5 +1,15 @@
 # React + TypeScript + Vite
 
+## Todo
+
+- [ ] Search by direcor, netflix (etc.)
+- [ ] Create custom lists
+- [ ] drag & drop, sort
+- [ ] Simple Auth from gmail, facebook, twitter
+- [ ] Admin user panel
+- [ ] db
+- [ ] create fast movieset and share, embed, link
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
