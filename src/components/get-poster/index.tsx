@@ -4,7 +4,7 @@ import axios from "axios";
 import "../../App.css";
 
 // API ключ из TMDB (замените на ваш реальный ключ)
-const API_KEY = "71c3c2eb04ed357995896b0bc9ffcbd7";
+const API_KEY = import.meta.env.TMDB_API_KEY;
 
 // ID фильма для получения данных (замените на нужный ID)
 const MOVIE_ID = 550; // Например, ID фильма Fight Club
