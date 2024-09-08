@@ -2,10 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-// Ваш API ключ из TMDB
-const API_KEY = "71c3c2eb04ed357995896b0bc9ffcbd7";
+// TMDB API KEY
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
-export const SearchMovies = ({ addFavorite }) => {
+export const SearchMovies = ({
+	addFavorite,
+	removeFavorite,
+	favorites = [],
+}) => {
 	const [query, setQuery] = useState(""); // Состояние для ввода пользователя
 	const [movies, setMovies] = useState([]); // Состояние для результатов поиска
 	const [viewMode, setViewMode] = useState<"poster" | "list">("poster"); // Состояние для переключения вида
@@ -66,6 +70,9 @@ export const SearchMovies = ({ addFavorite }) => {
 		loadMovieDetails();
 	}, [viewMode, movies]);
 
+	// Функция для проверки, находится ли фильм уже в избранном
+	const isFavorite = (movieId) => favorites.some((fav) => fav.id === movieId);
+
 	// Функция для переключения режима отображения
 	const toggleViewMode = () => {
 		setViewMode((prevMode) => (prevMode === "poster" ? "list" : "poster"));
@@ -117,12 +124,23 @@ export const SearchMovies = ({ addFavorite }) => {
 								<div className="text-gray-500">Нет постера</div>
 							)}
 							<h3 className="mt-2 text-lg">{movie.title}</h3>
-							<button
-								className="mt-2 bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600"
-								onClick={() => addFavorite(movie)}
-							>
-								Добавить в избранное
-							</button>
+
+							{/* Проверка, добавлен ли фильм в избранное */}
+							{isFavorite(movie.id) ? (
+								<button
+									className="mt-2 bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600"
+									onClick={() => removeFavorite(movie.id)}
+								>
+									Удалить из избранного
+								</button>
+							) : (
+								<button
+									className="mt-2 bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600"
+									onClick={() => addFavorite(movie)}
+								>
+									Добавить в избранное
+								</button>
+							)}
 						</div>
 					))}
 				</div>
@@ -149,12 +167,23 @@ export const SearchMovies = ({ addFavorite }) => {
 										</p>
 									</div>
 								</div>
-								<button
-									className="mt-2 bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600"
-									onClick={() => addFavorite(movie)}
-								>
-									Добавить в избранное
-								</button>
+
+								{/* Проверка, добавлен ли фильм в избранное */}
+								{isFavorite(movie.id) ? (
+									<button
+										className="mt-2 bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600"
+										onClick={() => removeFavorite(movie.id)}
+									>
+										Удалить из избранного
+									</button>
+								) : (
+									<button
+										className="mt-2 bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600"
+										onClick={() => addFavorite(movie)}
+									>
+										Добавить в избранное
+									</button>
+								)}
 							</div>
 						);
 					})}

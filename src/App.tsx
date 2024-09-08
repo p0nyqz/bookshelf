@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
-import { GetPoster } from "./components/get-poster";
-import { SearchMovies } from "./components/search-movie";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { SearchMovies } from "./components/search-movie";
 import { Favorites } from "./components/favorites";
+import "./App.css";
 
 function App() {
-	// const [count, setCount] = useState(0);
 	const [favorites, setFavorites] = useState([]); // Состояние для хранения избранных фильмов
 
 	// Загружаем избранные фильмы из localStorage при первой загрузке
@@ -25,18 +21,13 @@ function App() {
 
 	// Сохранение избранных фильмов в localStorage при каждом обновлении favorites
 	useEffect(() => {
-		if (favorites.length > 0) {
-			// Сохраняем только если есть элементы
-			console.log("Saving favorites to localStorage:", favorites);
-			localStorage.setItem("favorites", JSON.stringify(favorites));
-		}
+		localStorage.setItem("favorites", JSON.stringify(favorites));
 	}, [favorites]);
 
 	// Функция для добавления фильма в избранное
 	const addFavorite = (movie) => {
 		if (!favorites.some((fav) => fav.id === movie.id)) {
-			const updatedFavorites = [...favorites, movie];
-			setFavorites(updatedFavorites);
+			setFavorites([...favorites, movie]);
 		}
 	};
 
@@ -57,7 +48,13 @@ function App() {
 					<Routes>
 						<Route
 							path="/"
-							element={<SearchMovies addFavorite={addFavorite} />}
+							element={
+								<SearchMovies
+									addFavorite={addFavorite}
+									removeFavorite={removeFavorite}
+									favorites={favorites} // Передаем список избранных фильмов
+								/>
+							}
 						/>
 						<Route
 							path="/favorites"

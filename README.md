@@ -2,13 +2,30 @@
 
 ## Todo
 
-- [ ] Search by direcor, netflix (etc.)
-- [ ] Create custom lists
-- [ ] drag & drop, sort
-- [ ] Simple Auth from gmail, facebook, twitter
-- [ ] Admin user panel
-- [ ] db
+//TODO: Check issues
+
+## core
+
 - [ ] create fast movieset and share, embed, link
+
+## ux
+
+- [ ] Search by direcor, creators (netflix etc.)
+- [x] Change list / poster views
+- [ ] drag & drop, sort
+- [ ] Create custom lists
+- [ ] Simple Auth from gmail, facebook, twitter
+
+## refactoring, bugs
+
+- [ ] Movie View Logic
+- [x] Hide API key
+
+## infra
+
+- [ ] db
+- [ ] Admin user panel
+- [ ] Commitlint, Husky, Semantic-release
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
